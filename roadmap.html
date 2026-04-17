@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Channel Launch Brief — Data Engineering in Hindi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Mukta:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F1EBDE;
+    --bg-deep: #E8E0CE;
+    --ink: #1A1714;
+    --ink-soft: #44403A;
+    --muted: #8A7F6E;
+    --accent: #C8371F;
+    --accent-soft: #E8633F;
+    --gold: #9C6B2A;
+    --line: #1A171422;
+    --paper: #FAF6EC;
+    --shadow: 0 1px 0 #1A171408, 0 20px 40px -20px #1A171422;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Mukta', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 15% 10%, #D23B2210 0%, transparent 40%),
+      radial-gradient(circle at 85% 90%, #9C6B2A10 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+  /* ===== MASTHEAD ===== */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 28px 0 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .masthead .left, .masthead .right { display: flex; gap: 24px; color: var(--ink-soft); }
+  .masthead .center {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--ink);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .hero .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero .label::before {
+    content: ''; width: 40px; height: 1px; background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(48px, 9vw, 128px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 0;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 900;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .hero .subtitle {
+    margin-top: 40px;
+    max-width: 720px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-weight: 300;
+  }
+  .hero .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .hero .meta .item {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero .meta .item .k {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .hero .meta .item .v {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  /* ===== SECTION TEMPLATE ===== */
+  section { padding: 80px 0; border-bottom: 1px solid var(--line); }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    margin-bottom: 56px;
+  }
+  .section-head .no {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .section-head h2 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .section-head p {
+    margin-top: 20px;
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 600px;
+  }
+
+  /* ===== CHANNEL NAMES ===== */
+  .names {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .name-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .name-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+  .name-card.primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .name-card .tag {
+    position: absolute;
+    top: 16px; right: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+  }
+  .name-card.primary .tag {
+    color: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .name-card .n-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .name-card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .name-card .vibe {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .name-card.primary .vibe { color: #F1EBDEBB; }
+
+  /* ===== AUDIENCE ===== */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .audience-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 40px;
+  }
+  .audience-card h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .audience-card ul { list-style: none; }
+  .audience-card li {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    font-size: 15px;
+  }
+  .audience-card li:last-child { border-bottom: none; }
+  .audience-card li .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 28px;
+  }
+  .positioning {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .positioning::before {
+    content: '"';
+    position: absolute;
+    top: -40px; left: 20px;
+    font-family: 'Fraunces', serif;
+    font-size: 200px;
+    color: var(--accent);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .positioning .p-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .positioning p {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 300;
+    font-style: italic;
+    position: relative;
+  }
+  .positioning p strong {
+    font-weight: 600;
+    color: var(--accent-soft);
+    font-style: normal;
+  }
+
+  /* ===== ROADMAP ===== */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .ep {
+    background: var(--paper);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    transition: background 0.3s;
+    min-height: 220px;
+  }
+  .ep:hover { background: var(--bg-deep); }
+  .ep .ep-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .ep h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .ep p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .ep .duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    margin-top: auto;
+  }
+  .ep.featured {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .ep.featured h4 { color: var(--paper); }
+  .ep.featured p { color: #F1EBDEBB; }
+  .ep.featured .duration { color: var(--accent-soft); border-color: #ffffff22; }
+  .ep.featured .ep-num { color: var(--accent-soft); }
+
+  /* ===== SHOOTING SCRIPT ===== */
+  .script-intro {
+    background: var(--paper);
+    padding: 40px;
+    border: 1px solid var(--line);
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+  }
+  .script-intro .title-block h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .script-intro .title-block .hindi {
+    font-family: 'Mukta', sans-serif;
+    color: var(--ink-soft);
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .script-intro .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .script-intro .stat {
+    border-left: 2px solid var(--accent);
+    padding-left: 14px;
+  }
+  .script-intro .stat .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .script-intro .stat .v {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 4px;
+  }
+  .script-intro .goal {
+    font-size: 15px;
+    color: var(--ink-soft);
+    border-left: 1px solid var(--line);
+    padding-left: 40px;
+  }
+
+  .script-block {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+  .script-block:last-of-type { border-bottom: 1px solid var(--line); }
+  .script-block .time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .script-block .time .tag {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+  .script-block .content h5 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .script-block .content .dialogue {
+    font-family: 'Mukta', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+    padding: 16px 20px;
+    background: var(--paper);
+    border-left: 3px solid var(--accent);
+    margin: 12px 0;
+    font-weight: 400;
+  }
+  .script-block .content .note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  .script-block .content .note::before {
+    content: '↳ ';
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ===== TITLES + THUMBNAILS ===== */
+  .lab {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .titles-list {
+    background: var(--paper);
+    padding: 32px;
+    border: 1px solid var(--line);
+  }
+  .titles-list h4, .thumbs h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .titles-list ol { list-style: none; counter-reset: t; }
+  .titles-list li {
+    counter-increment: t;
+    padding: 16px 0;
+    border-bottom: 1px dashed var(--line);
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .titles-list li:last-child { border-bottom: none; }
+  .titles-list li::before {
+    content: counter(t, decimal-leading-zero);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 700;
+    padding-top: 3px;
+  }
+  .titles-list li .score {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .thumbs { display: flex; flex-direction: column; gap: 20px; }
+  .thumb {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .thumb .mini {
+    aspect-ratio: 16/9;
+    background: var(--ink);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 16px;
+    text-align: center;
+    line-height: 0.9;
+    padding: 6px;
+  }
+  .thumb .mini.v1 { background: linear-gradient(135deg, #1A1714 0%, #2A2420 100%); color: #FFD84A; }
+  .thumb .mini.v1::before {
+    content: '?';
+    position: absolute;
+    font-size: 50px;
+    color: var(--accent);
+    right: -6px; bottom: -14px;
+    opacity: 0.5;
+  }
+  .thumb .mini.v2 { background: var(--accent); color: var(--paper); }
+  .thumb .mini.v3 {
+    background: linear-gradient(135deg, #9C6B2A 0%, #C8371F 100%);
+    color: var(--paper);
+  }
+  .thumb .desc h5 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .thumb .desc p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .thumb .desc .elements {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .check-col h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .check-item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .check-item:last-child { border: none; }
+  .check-item .box {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--ink);
+    margin-top: 3px;
+    position: relative;
+  }
+  .check-item strong {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .check-item .detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 60px 0 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 40px;
+  }
+  footer .big {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 32px;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  footer .big em {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .container { padding: 0 24px; }
+    .masthead { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .hero { padding: 50px 0 40px; }
+    .hero .meta { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .section-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 36px; }
+    .names { grid-template-columns: 1fr; }
+    .audience-grid { grid-template-columns: 1fr; gap: 24px; }
+    .roadmap { grid-template-columns: 1fr; }
+    .script-intro { grid-template-columns: 1fr; gap: 24px; }
+    .script-intro .goal { border: none; padding: 0; border-top: 1px solid var(--line); padding-top: 20px; }
+    .script-block { grid-template-columns: 1fr; gap: 16px; }
+    .lab { grid-template-columns: 1fr; }
+    .checklist { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="left">
+      <span>Vol. 01</span>
+      <span>Launch Brief</span>
+    </div>
+    <div class="center">The Data Pandit</div>
+    <div class="right">
+      <span>April 2026</span>
+      <span>Hindi · हिंदी</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="label">A YouTube channel blueprint for a senior data engineer</div>
+    <h1>Nine years of<br/>data, now in<br/><em>your language.</em></h1>
+    <p class="subtitle">
+      9 saal ka real industry experience, MNC-grade engineering ki samajh, aur Hindi bolne wale students aur professionals — ye combination abhi tak YouTube par missing hai. Ye brief uss gap ko bharne ka plan hai.
+    </p>
+    <div class="meta">
+      <div class="item"><div class="k">Host</div><div class="v">Data Engineer, 9 yrs</div></div>
+      <div class="item"><div class="k">Language</div><div class="v">Hinglish, India-first</div></div>
+      <div class="item"><div class="k">Format</div><div class="v">10–14 min episodes</div></div>
+      <div class="item"><div class="k">Series Length</div><div class="v">12 episodes, Season 1</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: CHANNEL NAMES -->
+  <section>
+    <div class="section-head">
+      <div class="no">§ 01 — Channel Identity</div>
+      <div>
+        <h2>Teen naam, ek <em>soch.</em></h2>
+        <p>Pick the one that feels like YOU saying it on camera for the next five years. Pronunciation test: Can your mom say it without stumbling?</p>
+      </div>
+    </div>
+    <div class="names">
+      <div class="name-card primary">
+        <span class="tag">Recommended</span>
+        <div class="n-label">Option A</div>
+        <h3>The Data Pandit</h3>
+        <p class="vibe">Authority + desi warmth. "Pandit" signals expertise, not religion. Works in search, stands out on a thumbnail, easy to brand as a logo.</p>
+      </div>
+      <div class="name-card">
+        <span class="tag">Casual</span>
+        <div class="n-label">Option B</div>
+        <h3>Data Adda Hindi</h3>
+        <p class="vibe">"Adda" = hangout. More community-first, less authority-first. Good if you want the long-haul "friend who teaches" vibe.</p>
+      </div>
+      <div class="name-card">
+        <span class="tag">Direct</span>
+        <div class="n-label">Option C</div>
+        <h3>Data Engineer Banao</h3>
+        <p class="vibe">Pure SEO play. Literally tells viewers the promise. Lower brand ceiling, higher early-stage click-through. Risky long-term.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: AUDIENCE + POSITIONING -->
+  <section>
+    <div class="section-head">
+      <div class="no">§ 02 — Audience & Positioning</div>
+      <div>
+        <h2>Kaun dekhega, aur <em>kyun.</em></h2>
+        <p>The sharper your audience, the faster the algorithm finds them. Broad channels die. Specific channels scale.</p>
+      </div>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <h4>Your 3 viewer personas</h4>
+        <ul>
+          <li>
+            <span class="num">01</span>
+            <div>
+              <strong>The Switcher</strong> — 2–5 years in IT (testing, support, development), earning ₹6–12 LPA, wants to jump to data engineering for ₹20+ LPA. Tier-2 city, engineering degree, English-capable but thinks in Hindi.
+            </div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <div>
+              <strong>The Fresher</strong> — Final year B.Tech / BCA / MCA student. Tired of LeetCode grind, looking for a path with better job security than pure SDE. Needs roadmap, not theory.
+            </div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <div>
+              <strong>The Analyst</strong> — 1–3 years as data analyst or BI developer. Hits ceiling at ₹10 LPA. Wants to learn Spark, Airflow, cloud to move up. Already knows SQL well.
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="positioning">
+        <div class="p-label">Your one-line pitch</div>
+        <p>Main aap ko data engineering sikhata hun <strong>jaisa ek senior aap ko office mein sikhata</strong> — bina jargon ke, real projects ke saath, Hindi mein.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: ROADMAP -->
+  <section>
+    <div class="section-head">
+      <div class="no">§ 03 — Season 1 Roadmap</div>
+      <div>
+        <h2>12 episodes, ek <em>complete career path.</em></h2>
+        <p>Each episode is standalone enough to go viral on its own, but ordered so that binge-watching creates a real skill stack. Ship weekly. Don't break the streak.</p>
+      </div>
+    </div>
+    <div class="roadmap">
+      <div class="ep featured">
+        <div class="ep-num">EP 01</div>
+        <h4>Data Engineering kya hota hai?</h4>
+        <p>Real-world analogy. Water supply engineer = data engineer. No code, pure concept. Hook episode for the entire channel.</p>
+        <div class="duration">10–12 min · Week 1</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 02</div>
+        <h4>DE vs DS vs DA — Asli Difference</h4>
+        <p>Honest comparison: salary, day-to-day kaam, difficulty, long-term growth. Whiteboard-style explainer.</p>
+        <div class="duration">12 min · Week 2</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 03</div>
+        <h4>Complete Roadmap 2026</h4>
+        <p>Month-by-month plan: 0 se job tak. Skills, order, resources, realistic timelines. Downloadable PDF.</p>
+        <div class="duration">14 min · Week 3</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 04</div>
+        <h4>SQL — Jo Har DE ko Aana Chahiye</h4>
+        <p>Joins, window functions, CTEs — sirf wo jo interview mein poocha jata hai. Live LeetCode problem solve.</p>
+        <div class="duration">18 min · Week 4</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 05</div>
+        <h4>Python for Data Engineering</h4>
+        <p>Sirf zaroori chizein: Pandas, dict/list comprehensions, functions, error handling. Boring stuff skip.</p>
+        <div class="duration">16 min · Week 5</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 06</div>
+        <h4>ETL vs ELT Explained</h4>
+        <p>Swiggy order ka journey se samjhao — modern pipelines real mein kaise dikhte hain.</p>
+        <div class="duration">12 min · Week 6</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 07</div>
+        <h4>Data Warehouse vs Lake vs Lakehouse</h4>
+        <p>Kab kya use karein. Snowflake, Redshift, Databricks — asli difference, marketing fluff nahi.</p>
+        <div class="duration">13 min · Week 7</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 08</div>
+        <h4>Apache Spark — Big Data ka Raja</h4>
+        <p>Spark kyun bana, kaise kaam karta hai, PySpark vs Scala — live code demo included.</p>
+        <div class="duration">20 min · Week 8</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 09</div>
+        <h4>Airflow — Pipelines ka Traffic Police</h4>
+        <p>DAGs, operators, scheduling. Live airflow UI walkthrough. Docker setup included.</p>
+        <div class="duration">18 min · Week 9</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 10</div>
+        <h4>AWS vs Azure vs GCP — Kaunsa Seekhein</h4>
+        <p>Job market India mein kya demand kar raha hai. Honest comparison, certifications, exam tips.</p>
+        <div class="duration">15 min · Week 10</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 11</div>
+        <h4>Interview Cracking — 9 Saal ka Experience</h4>
+        <p>Actual interview questions jo maine di aur li hain. System design round kaise handle karein.</p>
+        <div class="duration">22 min · Week 11</div>
+      </div>
+      <div class="ep">
+        <div class="ep-num">EP 12</div>
+        <h4>End-to-End Live Project</h4>
+        <p>Season finale. Real project banao: API → Kafka → Spark → Snowflake → dashboard. GitHub code free.</p>
+        <div class="duration">40 min · Week 12</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: EPISODE 1 SCRIPT -->
+  <section>
+    <div class="section-head">
+      <div class="no">§ 04 — Episode 01 Shooting Script</div>
+      <div>
+        <h2>Your first upload, <em>minute by minute.</em></h2>
+        <p>This is the one that has to carry the channel. Retention in the first 30 seconds decides whether YouTube shows you to the next 1,000 people.</p>
+      </div>
+    </div>
+
+    <div class="script-intro">
+      <div class="title-block">
+        <h3>"Data Engineering kya hota hai?"</h3>
+        <div class="hindi">9 saal ka engineer aasan bhasha mein samjha raha hai</div>
+        <div class="stats">
+          <div class="stat">
+            <div class="k">Length</div>
+            <div class="v">10–12 min</div>
+          </div>
+          <div class="stat">
+            <div class="k">Goal Retention</div>
+            <div class="v">55%+</div>
+          </div>
+          <div class="stat">
+            <div class="k">CTA</div>
+            <div class="v">Subscribe + EP2</div>
+          </div>
+          <div class="stat">
+            <div class="k">Complexity</div>
+            <div class="v">Zero code</div>
+          </div>
+        </div>
+      </div>
+      <div class="goal">
+        <strong>Ek hi kaam karna hai:</strong> Viewer ko 12 minute baith ke dekhne pe majboor karna, aur end mein ye feeling dena — "Yaar, ye banda asli lagta hai, next episode bhi dekhunga." Selling nahi karni. Teaching karni hai. Authority automatically aayegi.
+      </div>
+    </div>
+
+    <!-- HOOK -->
+    <div class="script-block">
+      <div class="time">00:00 – 00:30<span class="tag">Hook</span></div>
+      <div class="content">
+        <h5>The Swiggy opening</h5>
+        <div class="dialogue">
+          "Aaj subah aap ne Swiggy kholi, aur literally 2 second ke andar — app ne aap ko wahi biryani dikhai jo aap pichhle Sunday khana chahte the. Ye <strong>jadoo nahi</strong> hai. Ye ek engineer ka kaam hai jiska naam shayad aap ne kabhi nahi suna. Ye banda kaun hai, kya karta hai, aur kyun aaj India mein iski salary 25 lakh se start hoti hai — aaj exactly ye samjhayenge."
+        </div>
+        <div class="note">B-roll: Swiggy app opening, food scrolling, zoom into recommendations. No talking head yet.</div>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <div class="script-block">
+      <div class="time">00:30 – 01:15<span class="tag">Self-Intro</span></div>
+      <div class="content">
+        <h5>Credibility without bragging</h5>
+        <div class="dialogue">
+          "Main [Naam] hun. Pichhle 9 saal se India aur bahar ke bade MNCs mein data engineer hun. Netflix-scale data pipelines banata hun, interviews leta hun, juniors ko mentor karta hun. Ye channel main isliye shuru kar raha hun kyunki jo cheezein main office mein apne juniors ko Hindi mein sikhata hun, wo YouTube par sirf English mein milti hain — aur wo bhi aadhi-adhuri. Ye gap aaj se band."
+        </div>
+        <div class="note">Medium close-up, sitting. Behind you: a bookshelf OR a clean wall with one framed certification. No cluttered background.</div>
+      </div>
+    </div>
+
+    <!-- VALUE SETUP -->
+    <div class="script-block">
+      <div class="time">01:15 – 02:00<span class="tag">Promise</span></div>
+      <div class="content">
+        <h5>What this channel promises</h5>
+        <div class="dialogue">
+          "Iss channel pe ek cheez nahi milegi — jargon. Jab main kuch bolunga jo samajh nahi aayega, wohi moment pe screen pe uska matlab aayega. Aur ek cheez guaranteed milegi — real industry se examples. Textbook nahi, jo maine kal meeting mein kiya, wo. Chaliye shuru karte hain."
+        </div>
+        <div class="note">This is where retention drops for 60% of channels. Keep this under 45 seconds. Don't over-promise.</div>
+      </div>
+    </div>
+
+    <!-- MAIN ANALOGY -->
+    <div class="script-block">
+      <div class="time">02:00 – 04:30<span class="tag">Core Concept</span></div>
+      <div class="content">
+        <h5>The water supply analogy</h5>
+        <div class="dialogue">
+          "Apne ghar ka nal kholiye. Paani aata hai, haan? Ab socho — ye paani kahaan se aaya? Kisi river se. Phir usko saaf kiya gaya, treatment plant mein. Phir pipes ke through aap ke ghar aaya. Aur aap ne nal khola, glass bhar gaya. <br/><br/>Data engineering <strong>exactly</strong> yahi kaam hai — bas paani ki jagah data hai. Company ke paas data aata hai app se, website se, sensors se — jaise river se paani. Data engineer uss data ko clean karta hai, organize karta hai, pipes (jisko hum pipelines kehte hain) banaata hai — taaki jab aap ka boss bole 'mujhe yesterday ka sales chahiye', toh ek 'nal' khula aur data mil gaya."
+        </div>
+        <div class="note">Whiteboard or simple animation here. River → Treatment Plant → Pipes → Tap. Then swap labels: Source Systems → ETL → Warehouse → Dashboard. Same picture, both versions side-by-side.</div>
+      </div>
+    </div>
+
+    <!-- DAY IN LIFE -->
+    <div class="script-block">
+      <div class="time">04:30 – 06:30<span class="tag">Reality Check</span></div>
+      <div class="content">
+        <h5>Ek din ka schedule</h5>
+        <div class="dialogue">
+          "Ab aap soch rahe honge — 'bhai theek hai, concept samajh aaya, par asli kaam mein kya hota hai?' Chaliye mera kal ka din batata hun. <br/><br/>Subah 10 baje meeting — pipeline fail hui thi overnight, debug kiya. 11 baje code review. 12 baje new feature ka design — yaani ek naya pipe kaise banega. Lunch. 2 baje ek data scientist aaya, bola 'mujhe ye dataset chahiye' — banaya. 4 baje production deployment. 6 baje done. <br/><br/>Notice ek cheez — <strong>bahut kam coding hoti hai</strong>. Zyaada socho, kam likho. Yahi senior banne ka secret hai."
+        </div>
+        <div class="note">Consider a split-screen graphic with time stamps. Or just a clean list overlay. Don't over-animate.</div>
+      </div>
+    </div>
+
+    <!-- WHY NOW -->
+    <div class="script-block">
+      <div class="time">06:30 – 08:30<span class="tag">Market Reality</span></div>
+      <div class="content">
+        <h5>Kyun abhi sabse best time hai</h5>
+        <div class="dialogue">
+          "Teen number bata raha hun, bas. Ek — Naukri.com par 'data engineer' keyword pe aaj 40,000+ jobs hain, sirf India mein. Do — fresher ki starting salary 8 se 12 lakh hai, 4 saal experience mein 25 se 35 lakh easily. Teen — AI ka jitna hype hai, utna data engineer ka demand badhega, kyunki AI ko khane ke liye clean data chahiye, aur wo hum banate hain. <br/><br/>Par ek honest baat — market sirf achhe engineers ke liye garam hai. Average log ab bhi struggle karte hain. Iss channel ka maqsad aap ko average se upar le jaana hai."
+        </div>
+        <div class="note">Show actual Naukri screenshot (blur personal info). Real numbers build 10x more trust than round figures.</div>
+      </div>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="script-block">
+      <div class="time">08:30 – 10:00<span class="tag">Entry Point</span></div>
+      <div class="content">
+        <h5>Start karne ke liye kya chahiye</h5>
+        <div class="dialogue">
+          "Ye sun ke shock mat ho jaana — <strong>bahut kuch nahi chahiye</strong>. Engineering degree? Helpful hai, mandatory nahi. Maths genius? Bilkul nahi. Coding expert? Start mein nahi. Sirf teen cheezein chahiye — basic computer chalana aata ho, English thoda-bahut padh leta ho (bolna nahi), aur daily 2 ghanta 6 mahine tak dedicate kar sako. Bas. Baaki main sikhaunga."
+        </div>
+        <div class="note">This is the turning-point moment. Lean into the camera slightly here. Lower your voice. It becomes personal.</div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="script-block">
+      <div class="time">10:00 – 11:30<span class="tag">Homework + CTA</span></div>
+      <div class="content">
+        <h5>Viewer ko ek kaam dena</h5>
+        <div class="dialogue">
+          "Aaj ke liye ek homework — neeche comment mein batao: aap kahan se ho, kya karte ho abhi, aur data engineer kyun banna chahte ho. Main pehle 100 comments ka khud reply dunga. <br/><br/>Next episode mein hum comparison karenge — data engineer, data scientist, data analyst — teen alag log hain, teen alag salary, teen alag kaam. Woh episode agle Monday subah 8 baje. Subscribe kar do, bell icon dabao — kyunki ab agla 12 hafte, hum rukna nahi hai. Phir milte hain. Jai Hind."
+        </div>
+        <div class="note">End screen: next episode card on the left, subscribe animation on the right. 10 seconds max. Don't pad the outro.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: TITLES + THUMBNAILS -->
+  <section>
+    <div class="section-head">
+      <div class="no">§ 05 — Title & Thumbnail Lab</div>
+      <div>
+        <h2>Pehle 2 second mein <em>jeet ya haar.</em></h2>
+        <p>YouTube's homepage is a knife fight. Title + thumbnail do 80% of the work. Script does the remaining 20%.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="titles-list">
+        <h4>Title variants — A/B test karne ke liye</h4>
+        <ol>
+          <li><div><span class="score">BEST</span>Data Engineer kya hota hai? | 9 Saal ke MNC Engineer ne Bataya (Hindi)</div></li>
+          <li><div>Ye Career ₹25 LPA deta hai, par koi Hindi mein Nahi Sikhaata — Data Engineering Explained</div></li>
+          <li><div>Data Engineer vs Software Engineer — Salary, Kaam, Future (9 Saal ka Experience)</div></li>
+          <li><div>9 Saal MNC mein Data Engineer Raha Hun — Ye 12 Min Video aap ka Career Badal Sakta Hai</div></li>
+          <li><div>Bina Jargon ke Data Engineering Samjho | Complete Guide Hindi 2026 | Part 1</div></li>
+          <li><div>Swiggy ka Data Engineer Kya Karta Hai? Real-World Example se Samjho (Hindi)</div></li>
+        </ol>
+      </div>
+      <div class="thumbs">
+        <h4>Thumbnail directions</h4>
+        <div class="thumb">
+          <div class="mini v1">DATA<br/>ENGINEER?</div>
+          <div class="desc">
+            <h5>The "Shocked Question"</h5>
+            <p>Dark background, huge yellow text "DATA ENGINEER?", your face bottom-left with confused expression, big red arrow pointing to "₹25 LPA".</p>
+            <div class="elements">TYPE: QUESTION · MOOD: CURIOUS · CTR TARGET: 10%+</div>
+          </div>
+        </div>
+        <div class="thumb">
+          <div class="mini v2">9 SAAL<br/>KA SACH</div>
+          <div class="desc">
+            <h5>The "Authority Stamp"</h5>
+            <p>Red full-bleed background, bold white text "9 SAAL KA SACH", your photo half-profile on right, small laptop graphic showing code. Authority + warmth.</p>
+            <div class="elements">TYPE: CREDIBILITY · MOOD: SERIOUS · CTR TARGET: 8%+</div>
+          </div>
+        </div>
+        <div class="thumb">
+          <div class="mini v3">Swiggy<br/>→ Data</div>
+          <div class="desc">
+            <h5>The "Everyday Analogy"</h5>
+            <p>Gradient, Swiggy logo crossing to a data pipeline graphic, small text "Asli Engineer Kya Karta Hai". Highest curiosity, lowest ego.</p>
+            <div class="elements">TYPE: ANALOGY · MOOD: FRIENDLY · CTR TARGET: 9%+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: CHECKLIST -->
+  <section>
+    <div class="section-head">
+      <div class="no">§ 06 — Launch Week Checklist</div>
+      <div>
+        <h2>Record karne se <em>pehle.</em></h2>
+        <p>Do not skip any of these. Most first videos fail not because the content was bad, but because these basics were rushed.</p>
+      </div>
+    </div>
+    <div class="checklist">
+      <div class="check-col">
+        <h4>Gear & Setup</h4>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Audio first, video second.</strong> Boya M1 lavalier (~₹1,500) or Maono PD-200 USB mic. Viewers forgive bad video, never bad audio.<span class="detail">budget: ₹1,500 – ₹6,000</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Phone camera works fine.</strong> iPhone 12+ or any decent Android. Natural light from a window, face it directly. No ring light needed initially.<span class="detail">budget: ₹0</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Background.</strong> Bookshelf or one clean wall with ONE frame. No clutter. Don't show your bed.<span class="detail">signal: professionalism</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Editing software.</strong> CapCut (free, mobile) or DaVinci Resolve (free, desktop). Don't buy Premiere in month 1.<span class="detail">learning curve: 1 weekend</span></div>
+        </div>
+      </div>
+      <div class="check-col">
+        <h4>Content & Launch</h4>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Record the first 3 episodes before publishing episode 1.</strong> This removes the "next video ka pressure" and keeps quality consistent.<span class="detail">rule: inventory = confidence</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>One topic per video.</strong> "Data Engineering kya hai AND salary AND roadmap" = disaster. Split into three videos.<span class="detail">principle: one promise, one payoff</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Publish Monday 8 AM IST.</strong> Office-goers ka metro commute time. Set schedule and don't break it for 12 weeks.<span class="detail">consistency > virality</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Reply to every comment for the first 30 days.</strong> Algorithm tracks engagement signals. Comments = subscribers = recommendations.<span class="detail">time cost: 30 min/day</span></div>
+        </div>
+        <div class="check-item">
+          <div class="box"></div>
+          <div><strong>Ignore views for 90 days.</strong> Track watch-time and retention instead. Views are a lagging indicator; retention is a leading one.<span class="detail">metric: avg. view duration</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="big">Ab jaao, <em>record karo.</em></div>
+    <div>
+      <div>End of Brief · Vol. 01</div>
+      <div>Built for a 9-year engineer</div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
