@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The MacBook Setup — Vol. IV · Your First Recording Rig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Permanent+Marker&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0E0E0E;
+    --bg-soft: #161616;
+    --bg-card: #1C1C1C;
+    --paper: #F5F0E1;
+    --ink: #F5F0E1;
+    --ink-soft: #D4CFC0;
+    --muted: #8A857A;
+    --line: rgba(245,240,225,0.1);
+    --line-strong: rgba(245,240,225,0.2);
+    --yellow: #FFD84A;
+    --orange: #FF7A3A;
+    --red: #FF3B30;
+    --green: #4ADE80;
+    --blue: #6CA6FF;
+    --marker: #2563EB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.94 0 0 0 0 0.88 0 0 0 0.015 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; position: relative; z-index: 2; }
+
+  /* ===== MASTHEAD ===== */
+  .masthead {
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .masthead .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+    vertical-align: middle;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,59,48,0.6); }
+    50% { opacity: 0.5; box-shadow: 0 0 0 6px rgba(255,59,48,0); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 120px 0 100px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 80px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,216,74,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .hero .kicker::before {
+    content: '';
+    width: 32px; height: 2px;
+    background: var(--yellow);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(56px, 10vw, 140px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 20;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--yellow);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  .hero h1 .marker {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--marker);
+    font-weight: 400;
+    font-style: normal;
+    display: inline-block;
+    transform: rotate(-2deg);
+    position: relative;
+  }
+  .hero h1 .marker::after {
+    content: '';
+    position: absolute;
+    inset: -8px -12px;
+    border: 2.5px solid var(--marker);
+    border-radius: 8px;
+    transform: rotate(1deg);
+  }
+  .hero .subtitle {
+    margin-top: 48px;
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-weight: 300;
+    max-width: 820px;
+  }
+  .hero .subtitle strong {
+    color: var(--yellow);
+    font-weight: 500;
+  }
+  .hero .meta-row {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px dashed var(--line-strong);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .hero .meta-row .m .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .hero .meta-row .m .v {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* ===== TLDR BANNER ===== */
+  .tldr {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .tldr-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--yellow);
+    padding: 40px 44px;
+    position: relative;
+  }
+  .tldr-box::before {
+    content: 'TL;DR';
+    position: absolute;
+    top: -14px; left: 32px;
+    background: var(--yellow);
+    color: var(--bg);
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+  .tldr-box p {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .tldr-box p strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--yellow);
+  }
+  .tldr-box .warning {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--line-strong);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--red);
+    letter-spacing: 0.02em;
+  }
+  .tldr-box .warning::before {
+    content: '⚠ ';
+    font-weight: 700;
+  }
+
+  /* ===== SECTION ===== */
+  section { padding: 96px 0; border-bottom: 1px solid var(--line); position: relative; }
+
+  .sh {
+    margin-bottom: 56px;
+    max-width: 900px;
+  }
+  .sh .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+  .sh h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+  .sh h2 em { font-style: italic; font-weight: 500; color: var(--yellow); }
+  .sh h2 .marker {
+    font-family: 'Caveat', cursive;
+    color: var(--blue);
+    font-weight: 700;
+    font-style: normal;
+  }
+  .sh .lede {
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+
+  /* ===== REVERSE ENGINEER GRID ===== */
+  .reverse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .re-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .re-card.primary {
+    background: linear-gradient(135deg, #1C1C1C 0%, #2A1F0A 100%);
+    border-color: var(--yellow);
+  }
+  .re-card .re-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .re-card.primary .re-label { color: var(--yellow); }
+  .re-card h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .re-card h4 em { font-style: italic; color: var(--yellow); }
+  .re-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .re-card .verdict {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--green);
+  }
+  .re-card .verdict.neg { color: var(--red); }
+  .re-card .verdict::before {
+    content: '→ ';
+    font-weight: 700;
+  }
+
+  /* ===== STRATEGIC INSIGHT ===== */
+  .insight {
+    margin-top: 48px;
+    padding: 40px 44px;
+    background: linear-gradient(135deg, #0E1A2A 0%, #0A0E14 100%);
+    border-left: 4px solid var(--blue);
+  }
+  .insight .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .insight p {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .insight p strong {
+    font-style: normal;
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  /* ===== TOOL CARD ===== */
+  .tool-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .tool {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 40px 40px 32px;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+  .tool:hover { border-color: var(--line-strong); }
+  .tool .tool-head {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 24px;
+    align-items: start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+  }
+  .tool .icon {
+    width: 72px; height: 72px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--yellow);
+    font-style: italic;
+  }
+  .tool.canva .icon { background: linear-gradient(135deg, #00C4CC 0%, #7D2AE8 100%); color: white; }
+  .tool.obs .icon { background: #302E3D; color: var(--ink); }
+  .tool.descript .icon { background: linear-gradient(135deg, #0EA5E9 0%, #6366F1 100%); color: white; }
+  .tool.excalidraw .icon { background: #121212; border-color: var(--yellow); color: var(--yellow); }
+  .tool.keynote .icon { background: #222; color: #4285F4; }
+  .tool .name h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .tool .name h3 em { font-style: italic; color: var(--yellow); }
+  .tool .name .tagline {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+  .tool .price {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tool .price .amt {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--green);
+    letter-spacing: -0.01em;
+  }
+  .tool .price .freq {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+  .tool .price.free .amt { color: var(--green); }
+  .tool .price.paid .amt { color: var(--yellow); }
+  .tool-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .tool-body .col h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .tool-body p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .tool-body strong { color: var(--yellow); font-weight: 600; }
+  .tool-body ul { list-style: none; }
+  .tool-body li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+  }
+  .tool-body li::before {
+    content: '›';
+    color: var(--yellow);
+    font-weight: 700;
+  }
+
+  /* ===== WARNING BOX ===== */
+  .danger-box {
+    background: linear-gradient(135deg, #2A0A0A 0%, #1A0505 100%);
+    border: 1px solid var(--red);
+    padding: 40px 44px;
+    margin: 48px 0;
+    position: relative;
+  }
+  .danger-box::before {
+    content: '⛔ CRITICAL';
+    position: absolute;
+    top: -14px; left: 32px;
+    background: var(--red);
+    color: white;
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+  .danger-box h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--red);
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .danger-box h4 em { font-style: italic; }
+  .danger-box p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ===== HARDWARE ===== */
+  .hw-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .hw-category {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 32px 30px;
+  }
+  .hw-category h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .hw-category .hw-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .hw-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+    align-items: baseline;
+  }
+  .hw-item:last-child { border-bottom: none; }
+  .hw-item .item-name {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .hw-item .item-note {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .hw-item .item-note.hot { color: var(--yellow); }
+  .hw-item .item-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    white-space: nowrap;
+  }
+  .hw-item.pick {
+    background: rgba(255,216,74,0.05);
+    margin: 0 -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-left: 3px solid var(--yellow);
+  }
+
+  /* ===== BUDGET TIERS ===== */
+  .budget-tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+  }
+  .tier {
+    padding: 36px 28px;
+    border-right: 1px solid var(--line);
+    background: var(--bg-soft);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .tier:last-child { border-right: none; }
+  .tier.sweet-spot {
+    background: linear-gradient(180deg, rgba(255,216,74,0.08) 0%, var(--bg-soft) 100%);
+  }
+  .tier.sweet-spot::before {
+    content: 'SWEET SPOT';
+    position: absolute;
+    top: -11px; left: 28px;
+    background: var(--yellow);
+    color: var(--bg);
+    padding: 4px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+  .tier .tier-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .tier .tier-amt {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--yellow);
+    margin-bottom: 16px;
+  }
+  .tier.sweet-spot .tier-amt { color: var(--yellow); }
+  .tier .tier-amt .u { font-size: 22px; color: var(--muted); font-style: italic; }
+  .tier .tier-for {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--line);
+    font-style: italic;
+  }
+  .tier ul { list-style: none; flex: 1; }
+  .tier li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 8px;
+  }
+  .tier li::before {
+    content: '+';
+    color: var(--green);
+    font-weight: 700;
+  }
+  .tier .tier-total {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .tier .tier-total strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* ===== WORKFLOW TIMELINE ===== */
+  .workflow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .wf-step {
+    display: grid;
+    grid-template-columns: 120px 1fr 140px;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .wf-step:last-child { border-bottom: 1px solid var(--line); }
+  .wf-step .time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yellow);
+    letter-spacing: 0.02em;
+  }
+  .wf-step .time .dur {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  .wf-step .content h5 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .wf-step .content h5 em { font-style: italic; color: var(--yellow); }
+  .wf-step .content p {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .wf-step .content p strong { color: var(--yellow); font-weight: 600; }
+  .wf-step .tool-used {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding: 6px 10px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: inline-block;
+    letter-spacing: 0.05em;
+  }
+  .wf-totals {
+    margin-top: 32px;
+    padding: 32px;
+    background: var(--bg-soft);
+    border: 1px solid var(--yellow);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .wf-totals .tl h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .wf-totals .tl .val {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 36px;
+    color: var(--yellow);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .wf-totals .tl .note {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* ===== TAKEAWAY ===== */
+  .takeaway-block {
+    padding: 120px 0;
+    text-align: center;
+    border-top: 2px solid var(--yellow);
+    border-bottom: none;
+  }
+  .takeaway-block .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 24px;
+  }
+  .takeaway-block h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    max-width: 980px;
+    margin: 0 auto;
+    color: var(--ink);
+  }
+  .takeaway-block h3 em { font-style: italic; color: var(--yellow); }
+  .takeaway-block h3 .marker {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--blue);
+    font-weight: 400;
+    font-style: normal;
+  }
+  .three-actions {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .action {
+    background: var(--bg-soft);
+    border: 1px solid var(--yellow);
+    padding: 28px 24px;
+    text-align: left;
+  }
+  .action .no {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--yellow);
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .action h6 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .action p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: baseline;
+  }
+  footer .signoff {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--ink-soft);
+    text-transform: none;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  footer .signoff em { color: var(--yellow); font-weight: 500; }
+  footer .right { text-align: right; text-transform: uppercase; line-height: 1.8; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .container { padding: 0 20px; }
+    .masthead { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .hero { padding: 60px 0 48px; }
+    .hero .meta-row { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .reverse-grid { grid-template-columns: 1fr; }
+    .tool-body { grid-template-columns: 1fr; gap: 20px; }
+    .tool .tool-head { grid-template-columns: 60px 1fr; }
+    .tool .icon { width: 56px; height: 56px; font-size: 24px; border-radius: 12px; }
+    .tool .price { grid-column: 1 / -1; text-align: left; margin-top: 8px; }
+    .hw-grid { grid-template-columns: 1fr; }
+    .budget-tiers { grid-template-columns: 1fr; }
+    .tier { border-right: none; border-bottom: 1px solid var(--line); }
+    .tier:last-child { border-bottom: none; }
+    .wf-step { grid-template-columns: 1fr; gap: 12px; }
+    .wf-step .tool-used { text-align: left; }
+    .wf-totals { grid-template-columns: 1fr; }
+    .three-actions { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; gap: 20px; }
+    footer .right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div><span class="dot"></span>VOL. IV · SETUP GUIDE · APR 2026</div>
+    <div>MACBOOK EDITION · INDIA-SPECIFIC</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="kicker">Your first recording rig, reverse-engineered and priced in INR</div>
+    <h1>
+      The <em>MacBook</em><br/>
+      YouTube setup,<br/>
+      <span class="marker">decoded.</span>
+    </h1>
+    <p class="subtitle">
+      You asked how to recreate that handwritten-slide aesthetic — the marker fonts, the 3D pie chart, the circular face-cam. Here's the exact toolchain, priced for India, chosen for a working data engineer who has <strong>weekends, not infinite time.</strong>
+    </p>
+    <div class="meta-row">
+      <div class="m"><div class="k">Device</div><div class="v">MacBook (M1 or newer)</div></div>
+      <div class="m"><div class="k">Target Cost</div><div class="v">₹0 to ₹30K tiers</div></div>
+      <div class="m"><div class="k">Primary Stack</div><div class="v">OBS + Canva + Descript</div></div>
+      <div class="m"><div class="k">Aesthetic Match</div><div class="v">~90% of reference video</div></div>
+    </div>
+  </div>
+
+  <!-- TL;DR -->
+  <div class="tldr">
+    <div class="tldr-box">
+      <p>
+        <strong>Start with OBS Studio, Canva Pro, and Descript.</strong> That trio plus your MacBook gets you <strong>90% of the "handwritten slide + face-cam" aesthetic</strong> for under ₹3,000/month all-in. The 3D pie chart in the reference is the giveaway — it's Canva. Everything else (marker fonts, doodle arrows, circular webcam overlay) is standard.
+      </p>
+      <div class="warning">CapCut is PERMANENTLY BANNED in India since June 2020 — do not build your workflow around it, no matter what random blogs say.</div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- SECTION 01 — WHAT YOU'RE REPLICATING          -->
+  <!-- ============================================= -->
+  <section>
+    <div class="sh">
+      <div class="label">§ 01 — What You're Actually Replicating</div>
+      <h2>Reverse-engineering the <em>reference video.</em></h2>
+      <p class="lede">The handwritten-blue-marker look has three possible origins, and each implies a different toolchain. Here's what the evidence points to, and why it matters for your setup decisions.</p>
+    </div>
+
+    <div class="reverse-grid">
+      <div class="re-card primary">
+        <div class="re-label">Primary Evidence</div>
+        <h4>The 3D pie chart is the <em>smoking gun.</em></h4>
+        <p>Excalidraw and tldraw don't render 3D charts. GoodNotes users import them as static images. Canva has native pie charts that you can tilt and shadow to achieve exactly this 3D look.</p>
+        <p>The marker typography (Permanent Marker / Architects Daughter) in that specific deep blue (#2563EB) on a light background is a classic Canva template.</p>
+        <div class="verdict">Verdict: Canva, 95% confidence</div>
+      </div>
+
+      <div class="re-card">
+        <div class="re-label">Face-cam Overlay</div>
+        <h4>The rounded bottom-right <em>webcam circle.</em></h4>
+        <p>Standard OBS Studio setup using an Image Mask/Blend filter. A white-circle-on-black PNG applied as an alpha mask turns any rectangular webcam feed into a perfect circle.</p>
+        <p>The subtle shadow around it (premium feel) = a second shadow PNG layered underneath. Zero cost, 15-minute setup.</p>
+        <div class="verdict">Verdict: OBS + mask PNG</div>
+      </div>
+
+      <div class="re-card">
+        <div class="re-label">Captions</div>
+        <h4>The grey subtitle bar = <em>YouTube auto-captions.</em></h4>
+        <p>Those grey-background captions aren't burned into the video — they're YouTube's automatic CC toggle. Nothing to do on your end except enable captions at upload.</p>
+        <p>For Hindi/Hinglish accuracy, you'll want to review and edit the auto-transcript before publishing. Descript's Studio Sound + auto-caption workflow handles this cleanly.</p>
+        <div class="verdict">Verdict: YouTube native + Descript polish</div>
+      </div>
+
+      <div class="re-card">
+        <div class="re-label">Recording Method</div>
+        <h4>Screen + webcam in <em>one take.</em></h4>
+        <p>The creator is running a slideshow (Canva in presentation mode), screen-recording it with OBS, with the webcam composited on top. This is the single most common educational YouTube format in 2026.</p>
+        <p>Not a DSLR studio shoot. Not a green screen. Just a MacBook, a mic, and good lighting.</p>
+        <div class="verdict">Verdict: OBS scene with 2 sources</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="label">Strategic Insight</div>
+      <p>
+        <strong>None of the major Hindi/Hinglish data-tech YouTubers use this aesthetic.</strong> Krish Naik, CodeWithHarry, Hitesh Choudhary, Telusko, Apna College — all use "code editor + webcam + occasional PowerPoint" as their visual language. The handwritten Canva-doodle style is a wide-open gap in this niche. Adopt it and you're visually distinct from day one.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SECTION 02 — THE CORE TOOLCHAIN                -->
+  <!-- ============================================= -->
+  <section>
+    <div class="sh">
+      <div class="label">§ 02 — The Core Toolchain</div>
+      <h2>Five tools. That's the <span class="marker">whole stack.</span></h2>
+      <p class="lede">Ignore the creator-economy noise that recommends 15 apps. For a first-time educational YouTuber on a MacBook, these five cover slide creation, recording, editing, alternative slide style, and polish. Everything else is a distraction until your channel passes 10K subscribers.</p>
+    </div>
+
+    <div class="tool-stack">
+
+      <!-- CANVA -->
+      <div class="tool canva">
+        <div class="tool-head">
+          <div class="icon">Cv</div>
+          <div class="name">
+            <h3>Canva <em>Pro</em></h3>
+            <div class="tagline">Primary slide creation · India's favourite</div>
+          </div>
+          <div class="price paid">
+            <div class="amt">₹4,000<span style="font-size: 12px; color: var(--muted);">/yr</span></div>
+            <div class="freq">Pro · Annual</div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="col">
+            <h5>Why it's the right pick</h5>
+            <p>Canva's template library, sticker packs, and handwritten-font catalogue match the reference video's aesthetic almost perfectly. The 30-day Pro trial gets you started free.</p>
+            <p><strong>Avoid third-party Canva Pro resellers</strong> at ₹299–799/year — they violate ToS and can be deactivated without warning. Catastrophic if your brand lives there.</p>
+            <p>Canva for Education is free but K-12 teachers only. YouTube educators don't qualify.</p>
+          </div>
+          <div class="col">
+            <h5>What to search inside Canva</h5>
+            <ul>
+              <li>Templates: "Doodle," "Scrapbook," "Sticky Note," "Whiteboard"</li>
+              <li>Elements: "doodle arrow," "marker," "scribble," "hand drawn"</li>
+              <li>Fonts: Kalam (Devanagari!), Architects Daughter, Permanent Marker, Caveat, Patrick Hand</li>
+              <li>Use the Draw tool's Shape Assist for sloppy-but-editable hand-drawn shapes</li>
+              <li>3D pie chart workaround: insert standard pie, add drop shadow + perspective tilt</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- OBS -->
+      <div class="tool obs">
+        <div class="tool-head">
+          <div class="icon">◉</div>
+          <div class="name">
+            <h3>OBS <em>Studio</em></h3>
+            <div class="tagline">Recording · Industry standard · Apple Silicon native</div>
+          </div>
+          <div class="price free">
+            <div class="amt">FREE</div>
+            <div class="freq">Always</div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="col">
+            <h5>Why it's non-negotiable</h5>
+            <p>OBS 32.1.1 (April 2026) has a native Apple Silicon build that outperforms every paid alternative under ₹20K. Everything else is either missing features (QuickTime, iMovie), overpriced (ScreenFlow ₹14K+), wrong-use-case (Riverside, Loom's 5-min cap), or subscription-heavy.</p>
+            <p>Grant Screen Recording, Camera, and Microphone permissions in System Settings → Privacy & Security after install.</p>
+          </div>
+          <div class="col">
+            <h5>Settings that matter for YouTube</h5>
+            <ul>
+              <li>1920×1080 base + output, <strong>30 fps not 60</strong> (60 wastes space on static slides)</li>
+              <li>Apple VT H.264 Hardware Encoder, CBR at 12,000 Kbps</li>
+              <li>Record to MKV, remux to MP4 afterward (File → Remux)</li>
+              <li>Audio: 48 kHz, 320 Kbps AAC</li>
+              <li>Lanczos downscaling for sharpness</li>
+              <li>For circular face-cam: Image Mask/Blend filter → white circle PNG</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESCRIPT -->
+      <div class="tool descript">
+        <div class="tool-head">
+          <div class="icon">⌨</div>
+          <div class="name">
+            <h3>Descript <em>(Creator or Edu)</em></h3>
+            <div class="tagline">Editing · Text-based · The time-machine for working professionals</div>
+          </div>
+          <div class="price paid">
+            <div class="amt">₹420<span style="font-size: 12px; color: var(--muted);">/mo</span></div>
+            <div class="freq">Edu Plan · $5/mo</div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="col">
+            <h5>Why it's the single biggest unlock</h5>
+            <p>Descript treats your video as editable text. Delete a word from the auto-transcript → the frames disappear. <strong>One-click filler word removal</strong> ("um," "uh," "matlab") that would take 40 minutes in Final Cut happens in 15 seconds.</p>
+            <p><strong>Studio Sound</strong> cleans laptop-mic audio to near-studio quality with one click. Worth the subscription on its own.</p>
+            <p>Creator plan is $24/mo annual (~₹2,000–2,400/mo). Apply for the Education plan at $5/mo if you're teaching technical content — most applications approved.</p>
+          </div>
+          <div class="col">
+            <h5>Captions for Indian creators</h5>
+            <ul>
+              <li>Indian-accented English accuracy: 4.6/5 on G2 — excellent</li>
+              <li>Hindi: Beta, usable, needs manual pass</li>
+              <li>Code-switching Hinglish: the weakest spot. Watch for "matlab" getting flagged as filler</li>
+              <li>Always do a manual transcript pass before export</li>
+              <li>Built-in recorder captures screen + webcam + mic with auto-sync if you prefer skipping OBS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXCALIDRAW -->
+      <div class="tool excalidraw">
+        <div class="tool-head">
+          <div class="icon">✎</div>
+          <div class="name">
+            <h3>Excalidraw <em>(alternative)</em></h3>
+            <div class="tagline">Technical diagrams · Free · The AI-YouTuber secret weapon</div>
+          </div>
+          <div class="price free">
+            <div class="amt">FREE</div>
+            <div class="freq">Plus @ $6/mo</div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="col">
+            <h5>When to use it instead of Canva</h5>
+            <p>Excalidraw's signature hand-drawn Virgil/Excalifont aesthetic has become the default for AI/tech YouTubers globally. Genuinely excellent for architecture diagrams, system design, and pipeline explainers.</p>
+            <p>The Frames feature converts your infinite canvas into sequential slides — perfect for teaching Kafka/Airflow/DAG diagrams.</p>
+          </div>
+          <div class="col">
+            <h5>The Hindi catch</h5>
+            <ul>
+              <li>Excalifont doesn't render Devanagari</li>
+              <li>Hindi text falls back to system fonts and loses the hand-drawn feel</li>
+              <li><strong>Best strategy</strong>: Excalidraw for English-dominant diagram slides; Canva for bilingual title cards and thumbnails</li>
+              <li>Free tier unlimited for solo use, browser-based, no account needed</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEYNOTE -->
+      <div class="tool keynote">
+        <div class="tool-head">
+          <div class="icon">K</div>
+          <div class="name">
+            <h3>Keynote <em>(built-in)</em></h3>
+            <div class="tagline">Polish · Title cards · Already on your Mac</div>
+          </div>
+          <div class="price free">
+            <div class="amt">FREE</div>
+            <div class="freq">Pre-installed</div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="col">
+            <h5>Use it for these specific things</h5>
+            <p>Keynote handles Kalam beautifully once you install the font via Font Book. Magic Move transitions look genuinely premium for intro/outro sequences.</p>
+            <p>Weak for the doodle aesthetic (that's Canva's job), but unbeatable for clean title cards, chapter dividers, and animated text reveals.</p>
+          </div>
+          <div class="col">
+            <h5>The workflow split</h5>
+            <ul>
+              <li>Canva: core content slides, bilingual layouts, thumbnails</li>
+              <li>Excalidraw: technical architecture diagrams</li>
+              <li>Keynote: polished title cards, Magic Move animations, chapter markers</li>
+              <li>All three export to PNG/MP4, drop into OBS scene, record in one pass</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CAPCUT DANGER BOX -->
+    <div class="danger-box">
+      <h4>CapCut — <em>do not use.</em></h4>
+      <p>CapCut has been permanently banned in India since June 2020 alongside TikTok and 250+ other ByteDance apps. The ban is still in full force in April 2026. It is not listed on the India App Store or Play Store. The website is geo-blocked. Using it via VPN is legally ambiguous for a creator building a professional brand. Some low-authority blogs falsely claim it's available — <strong>ignore them.</strong> Use Descript, Final Cut Pro, or free DaVinci Resolve instead.</p>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SECTION 03 — HARDWARE                          -->
+  <!-- ============================================= -->
+  <section>
+    <div class="sh">
+      <div class="label">§ 03 — Hardware · India-Priced</div>
+      <h2>Fix <em>audio first,</em> everything else second.</h2>
+      <p class="lede">The iron law of YouTube: viewers forgive bad video, never bad audio. They close the tab within 10 seconds. Spend your first rupee on a microphone. Everything below is priced from Amazon India and Flipkart in April 2026.</p>
+    </div>
+
+    <div class="hw-grid">
+
+      <!-- AUDIO -->
+      <div class="hw-category">
+        <h4>Audio — the only thing that matters</h4>
+        <div class="hw-sub">From ₹800 to ₹29K · pick ONE</div>
+
+        <div class="hw-item pick">
+          <div>
+            <div class="item-name">Boya BY-M1 · lavalier</div>
+            <div class="item-note hot">What CodeWithHarry started with. Most-used entry mic in Indian YouTube.</div>
+          </div>
+          <div class="item-price">₹800–1,100</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">FIFINE K669B · USB condenser</div>
+            <div class="item-note">Desk-based setup. Plug and play. Great for solo recording.</div>
+          </div>
+          <div class="item-price">₹3,990</div>
+        </div>
+        <div class="hw-item pick">
+          <div>
+            <div class="item-name">Maono PD200X · USB/XLR dynamic</div>
+            <div class="item-note hot">Broadcast quality. Software EQ. Best under ₹10K. Recommended upgrade path.</div>
+          </div>
+          <div class="item-price">₹9,932</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Rode NT-USB Mini</div>
+            <div class="item-note">Solid mid-range option. Cleaner aesthetic than Maono.</div>
+          </div>
+          <div class="item-price">₹10,999</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Samson Q2U · USB/XLR</div>
+            <div class="item-note">Includes clip, stand, windscreen. Podcasting starter pack.</div>
+          </div>
+          <div class="item-price">₹10,990</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Shure MV7+ · pro</div>
+            <div class="item-note">Krish Naik reportedly uses one. Serious-creator territory.</div>
+          </div>
+          <div class="item-price">₹25,990</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">DJI Mic 2 · wireless</div>
+            <div class="item-note">Transformative if you shoot away from desk. Two lavs + receiver.</div>
+          </div>
+          <div class="item-price">₹24,490</div>
+        </div>
+      </div>
+
+      <!-- CAMERA -->
+      <div class="hw-category">
+        <h4>Camera — your iPhone beats every webcam</h4>
+        <div class="hw-sub">Continuity Camera is the game-changer</div>
+
+        <div class="hw-item pick">
+          <div>
+            <div class="item-name">iPhone Continuity Camera · any XR+</div>
+            <div class="item-note hot">Beats every webcam under ₹25K. Center Stage, Studio Light, Portrait, Desk View. Wireless. Free if you own an iPhone.</div>
+          </div>
+          <div class="item-price">₹0</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Belkin MagSafe Continuity Mount</div>
+            <div class="item-note">Official mount, clips iPhone to MacBook lid. Third-party alts at ₹500.</div>
+          </div>
+          <div class="item-price">₹3,500</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">MacBook built-in · M2 or newer</div>
+            <div class="item-note">1080p FaceTime HD. Genuinely usable. M4's 12MP Center Stage is "night and day" better.</div>
+          </div>
+          <div class="item-price">₹0</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Logitech C920 · webcam</div>
+            <div class="item-note">Decade-old benchmark for beginners. Only buy if on M1 MacBook with 720p cam.</div>
+          </div>
+          <div class="item-price">₹5,800–7,500</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Logitech Brio 4K</div>
+            <div class="item-note">iPhone still beats it for image quality. Skip unless no iPhone available.</div>
+          </div>
+          <div class="item-price">₹20,995</div>
+        </div>
+      </div>
+
+      <!-- LIGHTING -->
+      <div class="hw-category">
+        <h4>Lighting — bigger impact than any camera upgrade</h4>
+        <div class="hw-sub">Start with a window, upgrade to a key light</div>
+
+        <div class="hw-item pick">
+          <div>
+            <div class="item-name">Window light · 10am–4pm</div>
+            <div class="item-note hot">Face a window slightly to your side (not dead-on). Creates shape and shadow. Professional for free.</div>
+          </div>
+          <div class="item-price">₹0</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Digitek 10" ring light</div>
+            <div class="item-note">Entry upgrade. Lights face only.</div>
+          </div>
+          <div class="item-price">₹1,200</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Digitek 18" ring light</div>
+            <div class="item-note">Handles face + background. Better for solo creators.</div>
+          </div>
+          <div class="item-price">₹2,800</div>
+        </div>
+        <div class="hw-item pick">
+          <div>
+            <div class="item-name">Godox SL-60W · key light</div>
+            <div class="item-note hot">Position 45° off-camera, high, angled down. Textbook Hollywood key light. Bigger difference than any mic or camera upgrade.</div>
+          </div>
+          <div class="item-price">₹11,000</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">White foam-board reflector</div>
+            <div class="item-note">Bounces window light to fill shadows. Upgrade from nothing.</div>
+          </div>
+          <div class="item-price">₹500</div>
+        </div>
+      </div>
+
+      <!-- AUDIO ROUTING -->
+      <div class="hw-category">
+        <h4>Software extras — for when you need system audio</h4>
+        <div class="hw-sub">Zoom guests, music, system sounds</div>
+
+        <div class="hw-item pick">
+          <div>
+            <div class="item-name">BlackHole 16ch · free</div>
+            <div class="item-note hot">Install via Homebrew: brew install blackhole-16ch. Audio routing for Mac. Sufficient for 95% of creators.</div>
+          </div>
+          <div class="item-price">₹0</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Loopback · Rogue Amoeba</div>
+            <div class="item-note">Visual drag-and-drop patchboard. Replaces Audio MIDI Setup ritual. Buy only if BlackHole frustrates you.</div>
+          </div>
+          <div class="item-price">₹8,500</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">Apple Creator Studio · bundle</div>
+            <div class="item-note">Final Cut Pro + Logic + Motion + Compressor + Pixelmator + MainStage. Launched Jan 2026.</div>
+          </div>
+          <div class="item-price">₹3,999/yr</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="item-name">vidIQ / TubeBuddy</div>
+            <div class="item-note">Keyword research, SEO. Free tiers sufficient for first 6 months.</div>
+          </div>
+          <div class="item-price">₹0</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SECTION 04 — BUDGET TIERS                      -->
+  <!-- ============================================= -->
+  <section>
+    <div class="sh">
+      <div class="label">§ 04 — Four Shopping Lists</div>
+      <h2>Pick your <em>budget tier</em> and stop shopping.</h2>
+      <p class="lede">Most channels that fail, fail on consistency — not on gear. Ship 15 videos on the ₹15K rig before spending another rupee. Each tier below is a complete, buildable setup.</p>
+    </div>
+
+    <div class="budget-tiers">
+
+      <div class="tier">
+        <div class="tier-label">Tier 1</div>
+        <div class="tier-amt">₹0</div>
+        <div class="tier-for">The "I'll start tomorrow" stack. Zero excuses.</div>
+        <ul>
+          <li>MacBook built-in camera (M2+)</li>
+          <li>Built-in mic in a quiet room</li>
+          <li>Window light, face the light</li>
+          <li>Canva Free (30-day Pro trial)</li>
+          <li>OBS Studio free</li>
+          <li>Descript Free (60 min/mo)</li>
+          <li>iMovie or DaVinci Resolve free</li>
+          <li>BlackHole 16ch for audio routing</li>
+        </ul>
+        <div class="tier-total">
+          Total setup cost
+          <strong>₹0</strong>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-label">Tier 2</div>
+        <div class="tier-amt">₹5K<span class="u"> range</span></div>
+        <div class="tier-for">Fix audio + lighting, the two highest-impact upgrades.</div>
+        <ul>
+          <li>Boya BY-M1 lavalier (₹1,000)</li>
+          <li>Digitek 10" ring light (₹1,200)</li>
+          <li>Generic phone/cam mount (₹800)</li>
+          <li>White foam-board reflector (₹500)</li>
+          <li>Canva Free</li>
+          <li>OBS + Descript Free</li>
+          <li>Cable buffer + TRRS adapter</li>
+        </ul>
+        <div class="tier-total">
+          Total setup cost
+          <strong>~₹3,500</strong>
+        </div>
+      </div>
+
+      <div class="tier sweet-spot">
+        <div class="tier-label">Tier 3</div>
+        <div class="tier-amt">₹15K<span class="u"> range</span></div>
+        <div class="tier-for">Professional audio + iPhone cam + Canva Pro. The real answer.</div>
+        <ul>
+          <li>FIFINE K669B USB mic (₹3,990)</li>
+          <li>Logitech C920 OR iPhone Continuity</li>
+          <li>Digitek 18" ring light (₹2,800)</li>
+          <li>Belkin MagSafe mount (₹2,000)</li>
+          <li>Canva Pro annual (₹4,000/yr)</li>
+          <li>Descript Edu tier (₹420/mo)</li>
+          <li>OBS + BlackHole</li>
+        </ul>
+        <div class="tier-total">
+          Hardware + first year software
+          <strong>~₹18,800</strong>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-label">Tier 4</div>
+        <div class="tier-amt">₹30K<span class="u">+</span></div>
+        <div class="tier-for">Serious creator. Don't spend this until episode 20.</div>
+        <ul>
+          <li>Maono PD200X mic (₹9,932)</li>
+          <li>iPhone Continuity + Belkin mount (₹3,500)</li>
+          <li>Godox SL-60W key light (₹11,000)</li>
+          <li>Digitek 18" ring as fill (₹2,800)</li>
+          <li>Canva Pro (₹4,000/yr)</li>
+          <li>Descript Creator (₹2,400/mo)</li>
+          <li>Final Cut Pro via Creator Studio (₹3,999/yr)</li>
+        </ul>
+        <div class="tier-total">
+          Hardware + first year software
+          <strong>~₹41,200</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SECTION 05 — WORKFLOW                          -->
+  <!-- ============================================= -->
+  <section>
+    <div class="sh">
+      <div class="label">§ 05 — The Full Workflow</div>
+      <h2>Script to upload, <em>one Saturday.</em></h2>
+      <p class="lede">Realistic first-video timeline for a working professional. Videos 2 through 10 will feel awkward. By episode 20, this drops to ~4 hours per video as your template library, voice, and editing muscles mature.</p>
+    </div>
+
+    <div class="workflow">
+
+      <div class="wf-step">
+        <div class="time">00:00 – 00:30<div class="dur">30 min</div></div>
+        <div class="content">
+          <h5>Keyword research + <em>topic validation.</em></h5>
+          <p>Find a low-competition Hindi/Hinglish query. Good examples: "Apache Spark Tutorial in Hindi 2026", "PySpark vs Pandas", "Data Engineer kya karta hai". <strong>Check search volume + current top videos</strong> — if top 3 results are 2-year-old English-only, that's a gap.</p>
+        </div>
+        <div class="tool-used">vidIQ / TubeBuddy</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="time">00:30 – 01:30<div class="dur">60 min</div></div>
+        <div class="content">
+          <h5>Bulleted <em>outline, not full script.</em></h5>
+          <p>Structure: <strong>Hook (15s) → Why this matters (45s) → Concept 1 → Concept 2 → Demo → Recap → CTA.</strong> Target 10–12 minutes total — the YouTube mid-roll ad threshold. Write in Hinglish the way you actually talk, not in formal Hindi.</p>
+        </div>
+        <div class="tool-used">Notes / Notion</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="time">01:30 – 03:00<div class="dur">90 min</div></div>
+        <div class="content">
+          <h5>Build <em>10–15 slides</em> in Canva.</h5>
+          <p>Pick a handwritten/doodle template. Use <strong>Kalam for Hindi text, Architects Daughter or Permanent Marker for English.</strong> Marker blue #2563EB for emphasis. Add doodle arrows, sticky-note stickers from Elements. Chart data goes in Canva's chart tool, not Excel.</p>
+        </div>
+        <div class="tool-used">Canva Pro</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="time">03:00 – 04:30<div class="dur">90 min</div></div>
+        <div class="content">
+          <h5>Record <em>scene by scene.</em></h5>
+          <p>OBS scene with slide capture + circular face-cam. Record in chunks (hook, each concept, demo, outro) — easier to retake a 90-second chunk than a 12-minute take. <strong>Leave 3 seconds of silence at start/end</strong> of each chunk for clean editing cuts.</p>
+        </div>
+        <div class="tool-used">OBS Studio</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="time">04:30 – 06:30<div class="dur">120 min</div></div>
+        <div class="content">
+          <h5>Edit in Descript — <em>text-based magic.</em></h5>
+          <p>Import OBS clips. Descript auto-transcribes. Delete awkward pauses and retakes by <strong>deleting words from the transcript.</strong> One-click filler word removal. Studio Sound pass. Review auto-captions (especially Hindi/Hinglish accuracy). Add simple zoom-ins on code moments.</p>
+        </div>
+        <div class="tool-used">Descript</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="time">06:30 – 07:00<div class="dur">30 min</div></div>
+        <div class="content">
+          <h5>Thumbnail that <em>screams, not whispers.</em></h5>
+          <p>Canva, 1280×720, your face with high-contrast expression, <strong>2–3 bold words maximum</strong>, bright yellow or red background, one small doodle arrow highlighting the key concept. A/B test by asking 3 friends which they'd click first.</p>
+        </div>
+        <div class="tool-used">Canva</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="time">07:00 – 07:30<div class="dur">30 min</div></div>
+        <div class="content">
+          <h5>Upload + <em>SEO execution.</em></h5>
+          <p>Title formula: <strong>[Hook] | [Keyword] in Hindi 2026</strong>. Description: 2-paragraph summary + chapter timestamps + Drive link to slides (watch-time retention hack). 15 mixed Hindi+English tags. Assign to playlist. Schedule community post for launch day.</p>
+        </div>
+        <div class="tool-used">YouTube Studio</div>
+      </div>
+
+    </div>
+
+    <div class="wf-totals">
+      <div class="tl">
+        <h5>First video total time</h5>
+        <div class="val">~7.5 hours</div>
+        <div class="note">One Saturday, if you stay focused</div>
+      </div>
+      <div class="tl">
+        <h5>By episode 20</h5>
+        <div class="val">~4 hours</div>
+        <div class="note">Templates + muscle memory take over</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- TAKEAWAY                                       -->
+  <!-- ============================================= -->
+  <div class="takeaway-block">
+    <div class="label">— The Bottom Line —</div>
+    <h3>
+      Buy <em>Canva Pro.</em> Use <em>iPhone Continuity.</em><br/>
+      Learn <em>Descript.</em> <span class="marker">Ship 15 videos.</span><br/>
+      Then — and only then — <em>spend another rupee.</em>
+    </h3>
+
+    <div class="three-actions">
+      <div class="action">
+        <div class="no">01</div>
+        <h6>Canva Pro = cheapest brand differentiation on the internet.</h6>
+        <p>₹4,000 a year for templates, Kalam Devanagari support, doodle elements, and the 3D pie chart trick. Nothing else comes close for bilingual creators.</p>
+      </div>
+      <div class="action">
+        <div class="no">02</div>
+        <h6>iPhone Continuity Camera beats every webcam under ₹25K.</h6>
+        <p>If you own an iPhone XR or newer, you already have a camera that embarrasses a Logitech Brio 4K. Zero additional cost, professional results.</p>
+      </div>
+      <div class="action">
+        <div class="no">03</div>
+        <h6>Descript at ₹420/month education tier is a gift.</h6>
+        <p>Apply as an educator teaching technical content — most applications approved. Text-based editing saves 40 minutes per video. 20 videos = 13 hours reclaimed.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container" style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: baseline;">
+    <div class="signoff">
+      "Most channels that fail, fail on <em>consistency,</em> not on gear. Start ugly, stay consistent, upgrade later."
+    </div>
+    <div class="right">
+      <div>End of Vol. IV</div>
+      <div>MacBook Edition</div>
+      <div>April 2026</div>
+      <div>Sources: OBS docs, Canva India, Amazon.in, Flipkart, Rogue Amoeba, Descript</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
