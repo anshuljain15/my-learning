@@ -1,0 +1,82 @@
+# One-Month Foundation Roadmap: PL/SQL Developer → Data Engineer + GenAI Engineer (Bangalore, 30 LPA Target)
+
+## TL;DR
+- **Go deep on Databricks (on Azure) as your ONE primary platform**, with Snowflake + dbt as a fast-follow secondary — this combination covers the highest-volume Bangalore GCC/consulting demand, is cloud-agnostic (Spark/Delta run on Azure, AWS, and GCP), leverages your existing Azure+AWS background, and future-proofs you for GenAI work via Databricks Mosaic AI.
+- **Your PL/SQL/SQL depth is a genuine advantage, not a liability** — the target employers (Deloitte, EY, KPMG, Carelon, Optum) test advanced SQL, data modeling, ELT/CDC/SCD logic, and architecture/scenario reasoning rather than hardcore DSA/LeetCode, so you can skip competitive coding entirely and still clear their loops.
+- **30 LPA is realistic and confirmed** for an 8–10 year data engineer at a Bangalore GCC — a real Carelon Bangalore offer of ₹29.2 LPA fixed for a senior Snowflake+AI data engineer sits squarely in your target band; this month builds the foundation, with interview-readiness to follow.
+
+## Key Findings
+
+### 1. Market demand (Bangalore, 2025–2026)
+Data engineering is one of the largest hiring categories in Indian tech, and Bangalore is the highest-paying market. Across job boards, the dominant stack for services/consulting/GCC roles is consistent: **Python + advanced SQL + Spark/PySpark + one cloud (Azure leads volume) + a lakehouse/warehouse platform (Databricks and/or Snowflake) + orchestration (Airflow) + transformation (dbt)**. Demand is deep: Indeed lists "979 Azure Databricks jobs available in Bengaluru, Karnataka" (July 2026) and Glassdoor shows "598 open jobs for Databricks in Bengaluru" (July 2026). Employer type is the single biggest salary lever: IT-services pay lower bands, while GCCs and AI-native product firms pay materially more — Taggd's *AI Engineer Salary in India 2026* finds GCCs and product startups pay "40-70% more than IT services firms for equivalent experience," and a move from IT services into a product company/GCC "can deliver an immediate 60–80% salary increase." This is precisely the lever behind your targeted ~50% jump.
+
+### 2. Tool recommendation — Databricks first, Snowflake close second
+- **Databricks (on Azure)**: Highest job volume in Bangalore, commands a salary premium, is cloud-agnostic, and is the platform where data engineering + GenAI converge (Mosaic AI, Vector Search, Agent Framework). This is the harder skill to self-teach (distributed Spark, Delta Lake, medallion architecture), so front-loading it yields the most ROI. Optum and many consulting shops are Databricks-centric.
+- **Snowflake + dbt**: SQL-first, so it directly leverages your PL/SQL strength and has the fastest learning curve. It dominates at Carelon/Elevance (a confirmed Carelon "Snowflake – Team Lead II" posting lists "Snowflake, AWS, AI engineering"), BFSI GCCs, and analytics-heavy teams. dbt is highly preferred in Snowflake ecosystems.
+- **Verdict**: Master Databricks hands-on (it's your differentiator and the tougher skill), and build working fluency in Snowflake + dbt (fast to add given your SQL background). Understand Azure Data Factory/Fabric and AWS Glue/Redshift at a conceptual/architecture level since your targets are multi-cloud. Note on certs: per Microsoft Learn, "You cannot renew Azure Data Engineer Associate (DP-203) certification because it retired on March 31, 2025. The closest replacement certification is Fabric Data Engineer Associate (DP-700)."
+
+### 3. Core competencies that matter most
+For these employers, in priority order: advanced SQL and query optimization; data modeling (star/snowflake schema, SCD, fact/dimension design); ETL vs ELT and CDC; the medallion (Bronze/Silver/Gold) lakehouse pattern with Delta Lake; PySpark and Spark performance tuning; orchestration with Airflow; transformation with dbt; data quality/governance (Unity Catalog); and streaming (Kafka) at an awareness level. Interviewers repeatedly probe *why* you chose an approach — trade-offs, idempotency, cost, reliability — not just *how*.
+
+### 4. GenAI expectations for a DE+AI hybrid role
+At consulting/GCC firms, GenAI is tested for **breadth and applied reasoning**, not deep research. You should be able to confidently explain: LLM fundamentals (tokens, context windows, temperature/top-p, embeddings); RAG end-to-end (chunking, embedding, vector store, retrieval, re-ranking, generation) — the single most-probed topic; vector databases; prompt engineering; RAG vs fine-tuning trade-offs; agents (ReAct, tools) at a conceptual level; and the newer trends of MCP and agentic AI. On MCP specifically: the Model Context Protocol was introduced by Anthropic on November 25, 2024 (created by David Soria Parra and Justin Spahr-Summers); it went mainstream when OpenAI adopted it in March 2025 (Sam Altman: "People love MCP and we are excited to add support across our products"), followed by Google DeepMind (April 2025) and Microsoft at Build (May 2025), and was donated to the Linux Foundation's Agentic AI Foundation in December 2025. Depth expected is "can design and reason about a RAG system and its failure modes," not "can train a transformer."
+
+### 5. Interview process at target companies
+Consistent pattern across Deloitte, EY, KPMG, Carelon, Optum: a recruiter screen, followed by 2–3 technical rounds (SQL live-coding, Python/PySpark, cloud/platform, data modeling, and **system/architecture design** — e.g., "design a batch or streaming pipeline / lakehouse"), then a managerial/behavioral round and HR/salary discussion. Carelon runs a typical 3-round loop (technical → techno-managerial → HR) focused on SQL, Python, and distributed processing; one Carelon Bengaluru candidate described it as "live coding for SQL and python and another round with manager and senior manager." DSA/LeetCode is light-to-absent at healthcare GCCs and Big Four consulting (Deloitte's own emphasis is system design "grounded in business requirements, governance constraints, and operational realities"). BFSI GCCs like Wells Fargo are the exception and lean more on DSA/HackerRank tests. STAR-format behavioral answers and client-communication maturity matter throughout.
+
+### 6. Fastest PL/SQL → DE bridge
+Your stored-procedure/ELT logic, dynamic SQL, and set-based thinking map directly to dbt models, Spark SQL transformations, and warehouse ELT. The fastest bridge: take a report/transformation you build today in PL/SQL and re-implement it as a version-controlled dbt + Spark pipeline with medallion layering. Reframe your experience as "data transformation and modeling at the database layer" — that story lands well, and your existing banking/BFSI domain context is itself a paid-for skill at healthcare/BFSI GCCs.
+
+### 7. Certifications worth pursuing
+For a senior hire, certs help pass resume screens but won't replace hands-on depth. Best ROI for your target market and stack: **Databricks Certified Data Engineer Associate** (fastest-growing, maps to lakehouse roles) and **Databricks Certified Generative AI Engineer Associate** (differentiator for the DE+AI hybrid angle). **SnowPro Core** is a quick win if you target Snowflake-heavy shops like Carelon. Skip DP-203 (retired); pursue DP-700 (Fabric) only if a specific target explicitly uses Microsoft Fabric.
+
+## Details: The 4-Week Roadmap (2 hours/day)
+
+**Guiding principles:** No DSA. Every week ends in something you can *do* and *explain*. Emphasize architecture and scenario reasoning. Weave a GenAI track (~25–30 minutes) through each week. Primary platform = Databricks; use the free Databricks Community Edition / Azure free trial.
+
+### Week 1 — SQL-to-DE bridge + Spark/Databricks foundations
+**Objectives:** Convert your SQL strength into DE vocabulary; get hands-on with Databricks and PySpark.
+- **Topics:** Data warehousing concepts (OLTP vs OLAP, dimensional modeling, star vs snowflake schema, SCD types 1/2, surrogate keys); ETL vs ELT; CDC; Databricks workspace, clusters, notebooks; PySpark DataFrame API vs Spark SQL; reading/writing Delta.
+- **Hands-on daily blocks:** Spin up Databricks Community Edition; load a messy multi-table public dataset (e.g., retail/healthcare claims); rewrite 3–4 of your typical SQL transforms as both Spark SQL and PySpark.
+- **Resources:** Databricks Academy (free); "Azure Databricks & Spark for Data Engineers" (Udemy, Formula 1 project); Data Engineering Zoomcamp (free, DataTalks.Club); Microsoft Learn medallion docs.
+- **Mini-project:** Ingest one raw dataset into a Bronze Delta table with ingestion metadata (source_file, ingestion_timestamp).
+- **GenAI track:** LLM fundamentals — tokens, embeddings, context windows, temperature/top-p. Resource: DataCamp GenAI/LLM question guides.
+
+### Week 2 — Lakehouse architecture + PySpark depth + orchestration
+**Objectives:** Own the medallion pattern end-to-end; understand orchestration.
+- **Topics:** Bronze/Silver/Gold medallion architecture; Delta Lake (ACID, time travel, MERGE, OPTIMIZE/Z-ORDER, schema evolution); PySpark transformations (joins, window functions, aggregations, handling skew, broadcast joins); incremental processing; intro to Airflow DAGs and dbt.
+- **Hands-on:** Build Silver (dedup, type coercion, conformed keys) and Gold (star-schema facts/dims) layers on Week 1 data; implement a MERGE-based SCD Type 2; write one Airflow DAG or Databricks Workflow to orchestrate the pipeline.
+- **Resources:** Microsoft Learn "medallion lakehouse architecture"; Conduktor medallion glossary; dbt Learn (free); Astronomer Airflow tutorials.
+- **Mini-project:** End-to-end Bronze→Silver→Gold pipeline with a dashboard-ready Gold table.
+- **GenAI track:** RAG architecture end-to-end (chunking → embedding → vector store → retrieval → re-ranking → generation) and RAG vs fine-tuning.
+
+### Week 3 — Warehouse platform (Snowflake + dbt) + architecture/scenario thinking
+**Objectives:** Add SQL-first warehouse fluency; practice system-design answers.
+- **Topics:** Snowflake architecture (separation of storage/compute, virtual warehouses, micro-partitions, time travel, data sharing); dbt models (staging/intermediate/marts, tests, lineage); when to pick lakehouse vs warehouse; data quality and governance (Unity Catalog, constraints, expectations); cost optimization.
+- **Hands-on:** Snowflake free trial — load data, build a small dbt project (3–4 models + tests); practice 5–6 architecture scenarios out loud ("design a CDC pipeline from Postgres to the lake," "why do counts drift between source and lake").
+- **Resources:** Snowflake free trial + quickstarts; dbt Fundamentals course; "Data Lake Architecture for Data Engineering Interviews" (dev.to).
+- **Mini-project:** A dbt project on Snowflake mirroring your Gold layer, with tests and documentation.
+- **GenAI track:** Vector databases, prompt engineering, hallucination mitigation, and evals.
+
+### Week 4 — Integration, GenAI depth, cloud breadth, and portfolio
+**Objectives:** Tie it together; build the DE+AI differentiator; polish your story.
+- **Topics:** Streaming/Kafka awareness (batch vs streaming, when to use each); cloud-service mapping across Azure (ADF/Fabric), AWS (Glue/Redshift/S3), GCP (BigQuery) at architecture level; CI/CD for data (Git, testing); agents, MCP, and agentic AI trends; building a simple RAG app.
+- **Hands-on:** Build a small RAG application (documents → embeddings → vector store → LLM Q&A) — ideally on Databricks (Mosaic AI / Vector Search) to unify your DE+AI story; write your architecture narratives and update your resume/LinkedIn to reframe PL/SQL experience as data transformation/modeling.
+- **Resources:** LangChain docs; Databricks GenAI learning path; amitshekhariitbhu/ai-engineering-interview-questions (GitHub); KalyanKS-NLP LLM interview hub.
+- **Capstone:** One end-to-end portfolio piece — a medallion pipeline (Databricks/Delta) feeding a Gold layer, orchestrated, with a RAG layer on top — that you can whiteboard and defend.
+- **GenAI track:** Agents (ReAct, tools), MCP, fine-tuning basics (LoRA/QLoRA at a conceptual level).
+
+## Recommendations
+1. **Commit to Databricks-on-Azure as your primary now.** Do all hands-on labs there. Benchmark to change course: if 3+ of your shortlisted target roles list Snowflake as the *primary* skill (common at Carelon/BFSI GCCs), flip your emphasis to Snowflake+dbt for those applications — but keep Databricks as the resume anchor since it carries the premium and the GenAI adjacency.
+2. **Do not spend a single hour on DSA/LeetCode** (unless you specifically target a BFSI GCC like Wells Fargo that uses coding tests). Your core targets don't gate on it. Redirect that time to architecture scenarios and SQL optimization.
+3. **After this foundation month, pursue Databricks Certified Data Engineer Associate**, then the Databricks GenAI Engineer Associate. Add SnowPro Core only if you're actively interviewing at Snowflake-first shops.
+4. **Build one strong end-to-end portfolio project** (medallion + orchestration + a RAG layer) rather than several shallow ones — it answers pipeline, modeling, architecture, and GenAI questions simultaneously.
+5. **Rehearse the "why."** For every tool choice, prepare a one-line trade-off ("I chose MERGE for SCD2 because…", "repartition over coalesce because…"). This is what separates 20 LPA from 30 LPA candidates at these firms.
+6. **Reframe your PL/SQL + banking-domain story** in interviews as production-grade data transformation and modeling in a regulated environment — then show the dbt/Spark version to prove you've modernized. Your BFSI domain context is a differentiator for healthcare/BFSI GCCs.
+
+## Caveats
+- Salary figures vary widely by source and employer type; the 25–35 LPA band for 8–10-year DEs at Bangalore GCCs is well-supported (Quantalent AI's 2026 Bangalore GCC benchmarks, drawn from 200+ GCCs, note AI/ML specialists command "a 25-40% premium at every experience level"), but the single strongest Carelon datapoint (₹29.2 LPA) is one anonymous self-report, corroborated by Glassdoor's 90th-percentile (~₹31 LPA) for the Carelon Data Engineer title.
+- This is a *foundation* month, not interview-readiness. Expect another 1–2 months of scenario practice and mock interviews afterward.
+- Two hours/day is tight for this scope; if a week slips, protect the Databricks/medallion core (Weeks 1–2) over breadth topics.
+- Tool demand shifts fast; re-scan live JDs for your specific shortlisted employers before finalizing platform emphasis. Microsoft Fabric is emerging at Microsoft-centric enterprises but is not yet dominant for engineering roles.
+- BFSI GCCs (e.g., Wells Fargo) are the exception to the "no DSA" rule and may include coding/online-assessment tests; healthcare GCCs (Carelon, Optum) and Big Four consulting generally emphasize SQL, PySpark, architecture, and scenario/domain questions instead.
